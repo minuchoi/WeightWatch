@@ -21,5 +21,6 @@ import loginpage.views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('weight/', weightpage.views.displayweight, name='weightpage'),
-    path('', loginpage.views.displaylogin, name='loginpage')
+    path('', loginpage.views.displaylogin, name='loginpage'),
+    path('testing/', weightpage.views.testing, name='testing')
 ]
