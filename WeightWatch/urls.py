@@ -17,10 +17,12 @@ from django.contrib import admin
 from django.urls import path
 import weightpage.views
 import loginpage.views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('weight/', weightpage.views.displayweight, name='weightpage'),
-    path('', loginpage.views.displaylogin, name='loginpage'),
-    path('testing/', weightpage.views.testing, name='testing')
-]
+                  path('admin/', admin.site.urls),
+                  path('weight/', weightpage.views.displayweight, name='weightpage'),
+                  path('', loginpage.views.displaylogin, name='loginpage'),
+                  path('testing/', weightpage.views.testing, name='testing')
+              ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
