@@ -3,7 +3,6 @@
 
 <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" id="bootstrap-css">
 <title>Login</title>
-<style></style>
 <!------ Include the above in your HEAD tag ---------->
 
 
@@ -19,13 +18,13 @@
     </div>
 
     <!-- Login Form -->
-    <form>
+    <form action="{% url 'weightpage' %}">
       <input type="text" id="login" class="fadeIn second" name="login" placeholder="Login">
       <input type="text" id="password" class="fadeIn third" name="login" placeholder="Password">
       <input type="submit" class="fadeIn fourth" value="Log In">
     </form>
 
-    <!-- Remind Passowrd -->
+    <!-- Create Account -->
     <div id="formFooter">
       <a class="underlineHover" href="#">Create Account</a>
     </div>
