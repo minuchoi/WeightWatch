@@ -18,7 +18,18 @@ def testing(request):
 
 def displayweight(request):
     list_of_past_weight = Weight.objects.all()
-    output = [w.weight for w in list_of_past_weight]
-    return render(request, 'weightpage/weightpage.html', {
-        'weights': output
-    })
+    weight = [(w.weight, w.time.strftime("%H:%M"), w.time.strftime("%m/%d/%Y")) for w in list_of_past_weight]
+
+
+    form = WeightForm(request.POST or None)
+
+    if form.is_valid():
+        form.save()
+
+
+    context = {
+        'weights': weight,
+        'form': form
+    }
+
+    return render(request, 'weightpage/weightpage.html', context)

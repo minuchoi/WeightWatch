@@ -55,7 +55,7 @@
       </div>
     </nav>
 
-    <!-- Main Page -->
+    <!-- Header for Main Page -->
 
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -72,9 +72,42 @@
         </div>
       </div>
 
-      <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
 
+        <!-- Form for Main Page -->
 
+        <!-- Nice form
+        <div>
+          <form method="POST"> {% csrf_token %}
+              <div class="form-group row">
+                <label for="example-text-input" class="col-2 col-form-label">Text</label>
+                    <div class="col-10">
+                        <input class="form-control" type="text" placeholder="username...(change this later)" id="example-text-input" name="user">
+                    </div>
+              </div>
+              <div class="form-group row">
+                  <label for="example-number-input" class="col-2 col-form-label">Number</label>
+                  <div class="col-10">
+                        <input class="form-control" type="float" placeholder="Weight in Kgs..." id="example-number-input" name="weight">
+                    </div>
+                </div>
+              <div class="form-group row">
+                  <label for="example-datetime-local-input" class="col-2 col-form-label">Date and time</label>
+                  <div class="col-10">
+                        <input class="form-control" type="datetime-local" placeholder="Date & Time..." id="example-datetime-local-input" name="time">
+                  </div>
+              </div>
+              <input type="submit" value="Save">
+          </form>
+      </div>
+      -->
+
+    <!-- Ugly form -->
+    <form method="POST"> {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Save">
+    </form>
+
+    
       <!-- Table -->
 
       <h2>Section title</h2>
@@ -89,12 +122,14 @@
             </tr>
           </thead>
           <tbody>
+          {% for weight in weights %}
           <tr>
               <td>1</td>
-              <td>79.1 kg</td>
-              <td>12:15 pm</td>
-              <td>24th Nov 2020</td>
+              <td>{{ weight.0 }}</td>
+              <td>{{ weight.1 }}</td>
+              <td>{{ weight.2 }}</td>
             </tr>
+          {% endfor %}
           </tbody>
         </table>
       </div>
