@@ -24,7 +24,7 @@ def dashboard(request, variable):
 
         return render(request, 'weightpage/weightpage.html', context)
 
-    elif variable == "table":
+    elif variable == "analytics":
         list_of_past_weight = Weight.objects.all()
         weight = [(w.weight, w.time.strftime("%H:%M"), w.time.strftime("%m/%d/%Y")) for w in list_of_past_weight]
 
