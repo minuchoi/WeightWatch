@@ -23,6 +23,5 @@ from django.conf.urls.static import static
 urlpatterns = [
                   path('admin/', admin.site.urls),
                   path('', loginpage.views.displaylogin, name='loginpage'),
-                  path('dashboard/<str:variable>', weightpage.views.displayweight, name='dashboard'),
-                  path('testing/', weightpage.views.testing, name='testing'),
+                  path('dashboard/<str:variable>', weightpage.views.dashboard, name='dashboard'),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
