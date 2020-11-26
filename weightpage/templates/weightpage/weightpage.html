@@ -15,7 +15,7 @@
   <body>
   <!-- Header -->
   <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-  <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="{% url 'weightpage' %}">Weight Page</a>
+  <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="{% url 'dashboard' 'home' %}">Weight Page</a>
   <ul class="navbar-nav px-3">
     <li class="nav-item text-nowrap">
       <a class="nav-link" href="{% url 'loginpage' %}">Sign out</a>
@@ -29,29 +29,16 @@
   <div class="row">
     <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
       <div class="sidebar-sticky pt-3">
-        <ul class="nav flex-column">
-          <li class="nav-item">
-            <a class="nav-link active" href="#">
-              <span data-feather="home"></span>
-              Dashboard <span class="sr-only">(current)</span>
-            </a>
-          </li>
-        </ul>
-
-        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-          <span>Saved reports</span>
-          <a class="d-flex align-items-center text-muted" href="#" aria-label="Add a new report">
-            <span data-feather="plus-circle"></span>
-          </a>
-        </h6>
-        <ul class="nav flex-column mb-2">
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="file-text"></span>
-              Current month
-            </a>
-          </li>
-        </ul>
+          {% for sidebar_objects in sidebar %}
+              <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'dashboard' sidebar_objects.url %}">
+                        <span data-feather="{{ sidebar_objects.icon }}"></span>
+                        {{ sidebar_objects.title }} <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+              </ul>
+          {%  endfor %}
       </div>
     </nav>
 
@@ -107,7 +94,7 @@
         <input type="submit" value="Save">
     </form>
 
-    
+
       <!-- Table -->
 
       <h2>Section title</h2>

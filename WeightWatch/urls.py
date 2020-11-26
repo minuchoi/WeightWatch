@@ -22,7 +22,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
                   path('admin/', admin.site.urls),
-                  path('weight/', weightpage.views.displayweight, name='weightpage'),
                   path('', loginpage.views.displaylogin, name='loginpage'),
-                  path('testing/', weightpage.views.testing, name='testing')
+                  path('dashboard/<str:variable>', weightpage.views.displayweight, name='dashboard'),
+                  path('testing/', weightpage.views.testing, name='testing'),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
