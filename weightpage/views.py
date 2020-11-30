@@ -1,4 +1,5 @@
 from django.shortcuts import render, Http404
+from django.contrib import messages
 
 from .models import Weight, SideBar
 from .forms import WeightForm
@@ -11,9 +12,6 @@ def dashboard(request, variable):
 
         form = WeightForm(request.POST or None)
 
-        if form.is_valid():
-            form.save()
-
         sidebar = SideBar.objects.all()
 
         context = {
@@ -22,7 +20,14 @@ def dashboard(request, variable):
             'sidebar': sidebar,
         }
 
-        return render(request, 'weightpage/weightpage.html', context)
+        if form.is_valid():
+            form.save()
+            context['message'] = "Data successfully inputted!"
+            return render(request, 'weightpage/weightpage.html', context)
+
+        else:
+            context['message'] = None
+            return render(request, 'weightpage/weightpage.html', context)
 
     elif variable == "analytics":
         list_of_past_weight = Weight.objects.all()

@@ -35,4 +35,9 @@
         <input type="submit" value="Save">
     </form>
 
+    {% if message %}
+    <script>
+    alert('{{ message }}');
+    </script>
+    {% endif %}
 {% endblock %}
