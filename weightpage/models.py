@@ -12,7 +12,8 @@ class User(models.Model):
 class Weight(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     weight = models.FloatField(null=False)
-    time = models.DateTimeField()
+    time = models.TimeField()
+    date = models.DateField()
 
 
 class SideBar(models.Model):

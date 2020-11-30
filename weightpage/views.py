@@ -4,20 +4,19 @@ from django.contrib import messages
 from .models import Weight, SideBar
 from .forms import WeightForm
 
+from datetime import datetime as dt
+
 
 def dashboard(request, variable):
+    sidebar = SideBar.objects.all()
+
     if variable == "home":
-        list_of_past_weight = Weight.objects.all()
-        weight = [(w.weight, w.time.strftime("%H:%M"), w.time.strftime("%m/%d/%Y")) for w in list_of_past_weight]
-
-        form = WeightForm(request.POST or None)
-
-        sidebar = SideBar.objects.all()
+        form = WeightForm(request.POST or None, initial={'user': 1,'time': dt.now().strftime("%H:%M"), 'date': dt.now()})
+        print(form)
 
         context = {
-            'weights': weight,
             'form': form,
-            'sidebar': sidebar,
+            'sidebar': sidebar
         }
 
         if form.is_valid():
@@ -31,9 +30,7 @@ def dashboard(request, variable):
 
     elif variable == "analytics":
         list_of_past_weight = Weight.objects.all()
-        weight = [(w.weight, w.time.strftime("%H:%M"), w.time.strftime("%m/%d/%Y")) for w in list_of_past_weight]
-
-        sidebar = SideBar.objects.all()
+        weight = [(w.weight, w.time.strftime("%H:%M"), w.date.strftime("%d/%m/%Y")) for w in list_of_past_weight]
 
         context = {
             'weights': weight,
@@ -50,7 +47,3 @@ def dashboard(request, variable):
 
     else:
         return render(request, 'loginpage/loginpage.html')
-
-
-
-
