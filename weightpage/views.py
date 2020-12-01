@@ -7,12 +7,12 @@ from .forms import WeightForm
 from datetime import datetime as dt
 
 
-def dashboard(request, variable):
+def dashboard(request, variable, message = None):
     sidebar = SideBar.objects.all()
 
     if variable == "home":
-        form = WeightForm(request.POST or None, initial={'user': 1,'time': dt.now().strftime("%H:%M"), 'date': dt.now()})
-        print(form)
+        form = WeightForm(request.POST or None,
+                          initial={'user': 1, 'time': dt.now().strftime("%H:%M"), 'date': dt.now()})
 
         context = {
             'form': form,
@@ -30,13 +30,14 @@ def dashboard(request, variable):
 
     elif variable == "analytics":
         list_of_past_weight = Weight.objects.all()
-        weight = [(w.weight, w.time.strftime("%H:%M"), w.date.strftime("%d/%m/%Y")) for w in list_of_past_weight]
+        weight = [(w.weight, w.time.strftime("%H:%M"), w.date.strftime("%d/%m/%Y"), w.id) for w in list_of_past_weight]
 
         context = {
             'weights': weight,
             'sidebar': sidebar,
+            'message': message,
         }
-
+        
         return render(request, 'weightpage/analytics.html', context)
 
     elif variable == "settings":
@@ -47,3 +48,29 @@ def dashboard(request, variable):
 
     else:
         return render(request, 'loginpage/loginpage.html')
+
+
+def edit_info(request, weight_id):
+    sidebar = SideBar.objects.all()
+    try:
+        weight = Weight.objects.get(id=weight_id)
+
+        form = WeightForm(request.POST or None, initial={'user': 1, 'weight': weight.weight, 'time': weight.time, 'date': weight.date})
+
+        context = {
+            'form': form,
+            'sidebar': sidebar,
+            'weight': weight
+        }
+
+        print(form.is_valid())
+
+        if form.is_valid():
+            form.save()
+            return dashboard(request, "analytics", message = "Data successfully changed!")
+
+        else:
+            return render(request, 'weightpage/edit_info.html', context)
+
+    except Weight.DoesNotExist:
+        raise Http404('Data not found.')

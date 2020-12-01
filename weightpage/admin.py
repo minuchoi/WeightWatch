@@ -11,7 +11,7 @@ class UserAdmin(admin.ModelAdmin):
 
 @admin.register(Weight)
 class Weight(admin.ModelAdmin):
-    list_display = ['user', 'weight', 'time', 'date']
+    list_display = ['id','user', 'weight', 'time', 'date']
 
 @admin.register(SideBar)
 class SideBar(admin.ModelAdmin):

@@ -17,7 +17,7 @@
           <tbody>
           {% for weight in weights %}
           <tr>
-              <td>1</td>
+              <td>{{ weight.3 }}</td>
               <td>{{ weight.0 }} kg</td>
               <td>{{ weight.1 }}</td>
               <td>{{ weight.2 }}</td>
@@ -26,6 +26,12 @@
           </tbody>
         </table>
       </div>
+
+    {% if message %}
+    <script>
+    alert('{{ message }}');
+    </script>
+    {% endif %}
 
 
 {% endblock %}
