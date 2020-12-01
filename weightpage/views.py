@@ -74,3 +74,26 @@ def edit_info(request, weight_id):
 
     except Weight.DoesNotExist:
         raise Http404('Data not found.')
+
+
+def delete_data_page(request, weight_id):
+    sidebar = SideBar.objects.all()
+
+    try:
+        chosen_weight = Weight.objects.get(id=weight_id)
+        weight = (chosen_weight.weight, chosen_weight.time, chosen_weight.date, chosen_weight.id)
+        context = {
+            'sidebar': sidebar,
+            'weight': weight
+        }
+
+        return render(request, 'weightpage/delete_info.html', context)
+
+    except Weight.DoesNotExist:
+        raise Http404('Data not found.')
+
+
+def delete_data(request, weight_id):
+    data = Weight.objects.get(id = weight_id)
+    data.delete()
+    return dashboard(request, "analytics", message="Data successfully deleted!")

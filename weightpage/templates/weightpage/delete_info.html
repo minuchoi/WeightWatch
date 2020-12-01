@@ -3,7 +3,7 @@
 
         <!-- Table -->
 
-      <h2>Section title</h2>
+      <h2>Are you sure you want to delete this entry?</h2>
       <div class="table-responsive">
         <table class="table table-striped table-sm">
           <thead>
@@ -12,30 +12,21 @@
               <th>Weight</th>
               <th>Time</th>
               <th>Date</th>
-                <th>Edit</th>
-                <th>Delete</th>
             </tr>
           </thead>
           <tbody>
-          {% for weight in weights %}
           <tr>
               <td>{{ weight.3 }}</td>
               <td>{{ weight.0 }} kg</td>
               <td>{{ weight.1 }}</td>
               <td>{{ weight.2 }}</td>
-          <td><a href="{% url 'edit_info' weight.3 %}"><span data-feather="edit"></span></a></td>
-          <td><a href="{% url 'delete_page' weight.3 %}"><span data-feather="trash-2"></span></a></td>
             </tr>
-          {% endfor %}
           </tbody>
         </table>
       </div>
 
-    {% if message %}
-    <script>
-    alert('{{ message }}');
-    </script>
-    {% endif %}
+    <a href="{% url 'delete_data' weight.3 %}" type="button" class="btn btn-danger btn-lg">Delete</a>
+    <a href="{% url 'dashboard' 'analytics' %}" type="button" class="btn btn-secondary btn-lg">Cancel</a>
 
 
 {% endblock %}
