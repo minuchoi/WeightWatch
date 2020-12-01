@@ -7,7 +7,7 @@ from .forms import WeightForm
 from datetime import datetime as dt
 
 
-def dashboard(request, variable, message = None):
+def dashboard(request, variable, message=None):
     sidebar = SideBar.objects.all()
 
     if variable == "home":
@@ -37,7 +37,7 @@ def dashboard(request, variable, message = None):
             'sidebar': sidebar,
             'message': message,
         }
-        
+
         return render(request, 'weightpage/analytics.html', context)
 
     elif variable == "settings":
@@ -55,7 +55,7 @@ def edit_info(request, weight_id):
     try:
         weight = Weight.objects.get(id=weight_id)
 
-        form = WeightForm(request.POST or None, initial={'user': 1, 'weight': weight.weight, 'time': weight.time, 'date': weight.date})
+        form = WeightForm(instance=weight)
 
         context = {
             'form': form,
@@ -63,11 +63,11 @@ def edit_info(request, weight_id):
             'weight': weight
         }
 
-        print(form.is_valid())
-
-        if form.is_valid():
-            form.save()
-            return dashboard(request, "analytics", message = "Data successfully changed!")
+        if request.method == 'POST':
+            new_form = WeightForm(request.POST, instance=weight)
+            if new_form.is_valid():
+                new_form.save()
+                return dashboard(request, "analytics", message="Data successfully changed!")
 
         else:
             return render(request, 'weightpage/edit_info.html', context)
