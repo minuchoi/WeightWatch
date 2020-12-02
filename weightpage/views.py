@@ -1,5 +1,4 @@
 from django.shortcuts import render, Http404
-from django.contrib import messages
 
 from .models import Weight, SideBar
 from .forms import WeightForm

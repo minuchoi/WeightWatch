@@ -24,3 +24,6 @@ class WeightForm(forms.ModelForm):
             'time': TimeInput(),
             'date': DateInput()
         }
+        labels = {
+            "weight": "Weight (Kg)"
+        }
