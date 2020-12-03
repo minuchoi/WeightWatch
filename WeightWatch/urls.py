@@ -29,5 +29,6 @@ urlpatterns = [
                        name='delete_page'),
                   path('dashboard/analytics/delete/deleted/<int:weight_id>', weightpage.views.delete_data,
                        name='delete_data'),
+                  path('register', loginpage.views.register, name='register'),
 
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
